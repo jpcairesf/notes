@@ -1,6 +1,9 @@
 +++
 date =2024-03-10T20:20:20-04:47
 +++
+# Backtracking
+Any time you have a problem that is solved by a series of decision, you might make a wrong decision. When you realize that you have to backtrack to a place where you made the decision and try something else. It's usually associated to recursion.
+
 # The Backtracking Blueprint
 Consider these 3 keys to achieve solutions when dealing with backtracking problems. Also consider sudoku as the example.
 
