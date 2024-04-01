@@ -2,16 +2,12 @@
 date = 2024-03-10T15:24:15-00:00
 +++
 
-# Sorting Algoithms
-
-Notes about different sorting algorithms with their characteristics and python examples.
-
 First we have to keep some concepts in mind.
 
 - **Inplace/Outplace**: use/don't use extra memory
 - **Unstable/Stable**: position order change/don't change for repeated values
 
-#### Selection Sort
+### Selection Sort
 
 Divides the input list into a sorted and an unsorted region. Repeatedly selects the smallest element from the unsorted region and swaps it with the first element in the unsorted region.
 
@@ -28,7 +24,7 @@ def selection_sort(arr):
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
 ```
 
-#### Insertion Sort
+### Insertion Sort
 
 Builds a sorted portion of the list one element at a time. Iterates through the unsorted portion, selects an element, and inserts it into its correct position in the sorted portion.
 
@@ -46,7 +42,7 @@ def insertion_sort(arr):
         arr[j + 1] = key
 ```
 
-#### Bubble Sort
+### Bubble Sort
 
 Repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. Pass through the list is repeated until no swaps are needed, indicating the list is sorted.
 
@@ -61,7 +57,7 @@ def bubble_sort(arr):
                 arr[j], arr[j+1] = arr[j+1], arr[j]
 ```
 
-#### Merge Sort
+### Merge Sort
 
 Divides the list into two halves recursively until each sublist contains a single element. Merges the sorted sublists back together, comparing elements to arrange them in the correct order.
 
@@ -98,7 +94,7 @@ def merge(left, right):
     return result
 ```
 
-#### Quick Sort
+### Quick Sort
 
 Chooses a pivot element from the array and partitions the other elements into two subarrays according to whether they are less than or greater than the pivot. Recursively sorts the subarrays and concatenates them.
 
@@ -120,7 +116,7 @@ def quick_sort(arr):
     return quick_sort(left) + middle + quick_sort(right)
 ```
 
-#### Heap Sort
+### Heap Sort
 
 Builds a binary heap (max heap) from the input array. Repeatedly extracts the maximum element (root of the heap) and rebuilds the heap until the array is sorted. Not used as the main sorting algorithms of programming languages because it is unstable.
 
