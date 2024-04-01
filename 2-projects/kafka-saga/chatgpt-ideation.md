@@ -56,13 +56,13 @@ Prompts and answers that guided my design to kafka-saga project.
 
 6. Saga Steps: Define individual steps within each saga to perform specific actions and emit events. For example:
 
-- Flight Booking Saga: Reserve seat on the flight. Emit `FlightBooked` event if successful.
-- Hotel Reservation Saga: Reserve room in the hotel. Emit `HotelReserved` event if successful.
-- Car Rental Saga: Rent a car. Emit `CarRented` event if successful.
+- Flight Booking Saga: Reserve seat on the flight; Emit `FlightBooked` event if successful.
+- Hotel Reservation Saga: Reserve room in the hotel; Emit `HotelReserved` event if successful.
+- Car Rental Saga: Rent a car; Emit `CarRented` event if successful.
 
 7. Compensation Steps: Implement compensation steps for each saga to handle failures and ensure consistency. If any step in the saga fails, compensating events are triggered to undo the changes made by previous steps.
 
-- For example, if the flight booking fails, trigger a CancelFlightBooking event to release the reserved seat.
+- For example, if the flight booking fails, trigger a `CancelFlightBooking ` event to release the reserved seat.
 
 8. Error Handling: Implement error handling mechanisms to handle failures gracefully. If a saga fails at any step, initiate compensation steps to rollback the changes and maintain system consistency.
 
