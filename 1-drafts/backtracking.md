@@ -1,10 +1,13 @@
 +++
-date =2024-03-10T20:20:20-04:47
+date=2024-03-10T20:20:20-04:47
 +++
+
 # Backtracking
+
 Any time you have a problem that is solved by a series of decision, you might make a wrong decision. When you realize that you have to backtrack to a place where you made the decision and try something else. It's usually associated to recursion.
 
 # The Backtracking Blueprint
+
 Consider these 3 keys to achieve solutions when dealing with backtracking problems. Also consider sudoku as the example.
 
 **Choice**: Map the choices that you have to handle the problem. e.g. we choose numbers in each cell, so the solve function may handle a row and a column (cell location). We can break down into rows as the base case.
@@ -12,7 +15,9 @@ Consider these 3 keys to achieve solutions when dealing with backtracking proble
 **Goal**: Reach base cases. e.g. there's no more empty cells.
 
 ### Code
+
 First we will use the keys to build a primitive structure of our algorithm.
+
 ```
 # Sudoku
 def solve(row, col, board):
@@ -33,7 +38,9 @@ def solve(row, col, board):
       # If it's not a good choice
       board[row][col] = 0
 ```
+
 Now the complete solution is like this.
+
 ```
 def isValid(board, row, col, num):
     for i in range(9):
