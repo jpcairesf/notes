@@ -69,3 +69,80 @@ Prompts and answers that guided my design to kafka-saga project.
 9. Monitoring and Logging: Implement monitoring and logging mechanisms to track the progress of sagas and diagnose issues. Use Kafka topic partitions to track the state of each saga instance.
 
 10. Testing: Write comprehensive unit tests and integration tests to validate the functionality of each saga and ensure that compensating events are triggered correctly in case of failures.
+
+## Saga Use Cases Deep Dive
+
+`describe in details how the saga steps will work, cover edge cases and define the events for each step of the travel booking process and how they will be structured and handled by kafka`
+
+1. Booking Initiation:
+
+- When a customer initiates a travel booking, a saga is started to coordinate the booking process.
+- This step involves collecting all necessary information from the customer, such as destination, travel dates, preferences, etc.
+- Edge Case: Handle scenarios where the customer provides incomplete or invalid information. The saga should gracefully handle such cases and inform the customer accordingly.
+- Event Name: `BookingInitiated`
+- Structure: `{ "booking_id": "<booking_id>", "customer_id": "<customer_id>", "destination": "<destination>", "travel_dates": "<travel_dates>", ... }`
+- Kafka Topic: `booking_initiated`
+
+2. Flight Booking:
+
+- The first step in the saga is to book the flight for the customer.
+- A message is sent to a Kafka topic indicating the flight booking request.
+- A flight booking service listens to this topic, processes the request, and emits events indicating the status of the booking.
+- Edge Case: If the flight booking fails (e.g., no available seats, technical issues), a compensating event is triggered to undo any partial bookings and inform the customer.
+- Event Name: `FlightBookingRequest`
+- Structure: `{ "booking_id": "<booking_id>", "customer_id": "<customer_id>", "flight_details": { "flight_number": "<flight_number>", "departure_date": "<departure_date>", ... } }`
+- Kafka Topic: `flight_booking_requests`
+
+3. Hotel Reservation:
+
+- After the flight booking is successful, the next step is to reserve a hotel room.
+- Similar to the flight booking step, a message is sent to another Kafka topic for hotel reservation.
+- A hotel reservation service processes the request and emits events for success or failure.
+- Edge Case: Handle scenarios where the desired hotel is fully booked or unavailable for the specified dates. Trigger compensating events if necessary.
+- Event Name: `HotelReservationRequest`
+- Structure: `{ "booking_id": "<booking_id>", "customer_id": "<customer_id>", "hotel_details": { "hotel_name": "<hotel_name>", "checkin_date": "<checkin_date>", ... } }`
+- Kafka Topic: `hotel_reservation_requests`
+
+4. Car Rental:
+
+- Once the flight and hotel are booked, the final step is to arrange for a rental car.
+- Again, a message is sent to a Kafka topic for car rental.
+- A car rental service processes the request and emits events accordingly.
+- Edge Case: If car rental fails (e.g., no available cars, rental service outage), trigger compensating events and inform the customer.
+- Event Name: `CarRentalRequest`
+- Structure: `{ "booking_id": "<booking_id>", "customer_id": "<customer_id>", "car_details": { "car_type": "<car_type>", "pickup_date": "<pickup_date>", ... } }`
+- Kafka Topic: `car_rental_requests`
+
+5. Booking Completion:
+
+- After all steps are completed successfully, the saga concludes, and the customer is notified of their confirmed travel arrangements.
+- If any step fails, the saga triggers compensating events to undo any partial bookings and informs the customer about the failure.
+- Event Name: `BookingCompleted`
+- Structure: `{ "booking_id": "<booking_id>", "customer_id": "<customer_id>", "confirmation_details": { "flight_booking_id": "<flight_booking_id>", "hotel_reservation_id": "<hotel_reservation_id>", "car_rental_id": "<car_rental_id>", ... } }`
+- Kafka Topic: `booking_completed`
+
+#### Compensating Events (for Failure Cases)
+
+1. Notify Booking Failed:
+
+- Event Name: `BookingFailed`
+- Structure: `{ "booking_id": "<booking_id>", "customer_id": "<customer_id>", "failure_reason": "<reason>", ... }`
+- Kafka Topic: `booking_failed`
+
+2. Compensate Flight Booking:
+
+- Event Name: `UndoFlightBooking`
+- Structure: `{ "booking_id": "<booking_id>", "flight_booking_id": "<flight_booking_id>", ... }`
+- Kafka Topic: `undo_flight_booking`
+
+3. Compensate Hotel Reservation:
+
+- Event Name: `UndoHotelReservation`
+- Structure: `{ "booking_id": "<booking_id>", "hotel_reservation_id": "<hotel_reservation_id>", ... }`
+- Kafka Topic: `undo_hotel_reservation`
+
+4. Compensate Car Rental:
+
+- Event Name: `UndoCarRental`
+- Structure: `{ "booking_id": "<booking_id>", "car_rental_id": "<car_rental_id>", ... }`
+- Kafka Topic: `undo_car_rental`
