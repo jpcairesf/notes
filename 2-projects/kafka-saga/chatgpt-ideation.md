@@ -8,7 +8,9 @@ Prompts and answers that guided my design to kafka-saga project.
 
 ## Brainstorm
 
-`give me use cases of saga pattern with kafka`
+```
+give me use cases of saga pattern with kafka
+```
 
 1. E-commerce Order Processing:
 
@@ -37,7 +39,9 @@ Prompts and answers that guided my design to kafka-saga project.
 
 ## Implementation Details
 
-`give me a detailed description to implement the Travel Booking System`
+```
+give me a detailed description to implement the Travel Booking System
+```
 
 1. Define Services: Identify the services involved in the booking process, such as Flight Booking Service, Hotel Reservation Service, and Car Rental Service. Each service should handle its specific part of the booking process.
 
@@ -72,7 +76,11 @@ Prompts and answers that guided my design to kafka-saga project.
 
 ## Saga Use Cases Deep Dive
 
-`describe in details how the saga steps will work, cover edge cases and define the events for each step of the travel booking process and how they will be structured and handled by kafka`
+```
+describe in details how the saga steps will work, cover edge cases
+and define the events for each step of the travel booking process
+and how they will be structured and handled by kafka
+```
 
 1. Booking Initiation:
 
